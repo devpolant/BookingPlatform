@@ -1,9 +1,9 @@
+DROP TABLE IF EXISTS `order_items`;
+DROP TABLE IF EXISTS `orders`;
+DROP TABLE IF EXISTS `places`;
+DROP TABLE IF EXISTS `locations`;
 DROP TABLE IF EXISTS `clients`;
 DROP TABLE IF EXISTS `vendors`;
-DROP TABLE IF EXISTS `locations`;
-DROP TABLE IF EXISTS `places`;
-DROP TABLE IF EXISTS `orders`;
-DROP TABLE IF EXISTS `order_items`;
 
 CREATE TABLE `clients` (
 	`id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -19,7 +19,7 @@ CREATE TABLE `vendors` (
 	`id` INT AUTO_INCREMENT PRIMARY KEY,
 	`login` VARCHAR(64) NOT NULL,
 	`name` VARCHAR(128) NOT NULL,
-	`email` VARCHAR(256),
+	`email` VARCHAR(256) NOT NULL,
 	`password` VARCHAR(128) NOT NULL,
 	`salt` VARCHAR(128) NOT NULL,
 	`token` VARCHAR(128) NOT NULL
@@ -31,30 +31,30 @@ CREATE TABLE `locations` (
 	`name` VARCHAR(128) NOT NULL,
 	`lat` DECIMAL NOT NULL,
 	`lng` DECIMAL NOT NULL,
-	FOREIGN KEY (`vendor_id`) REFERENCES `vendors`(`id`)
+	FOREIGN KEY (`vendor_id`) REFERENCES `vendors`(`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `places` (
 	`id` INT AUTO_INCREMENT PRIMARY KEY,
 	`location_id` INT NOT NULL,
 	`place_number` INT NOT NULL,
-	FOREIGN KEY (`location_id`) REFERENCES `locations`(`id`)
+	FOREIGN KEY (`location_id`) REFERENCES `locations`(`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `orders` (
 	`id` INT AUTO_INCREMENT PRIMARY KEY,
 	`vendor_id` INT NOT NULL,
 	`client_id` INT NOT NULL,
-    `date_from` DATETIME NOT NULL,
-    `date_to` DATETIME NOT NULL,
-	FOREIGN KEY (`vendor_id`) REFERENCES `vendors`(`id`),
-	FOREIGN KEY (`client_id`) REFERENCES `clients`(`id`)
+	`date_from` DATETIME NOT NULL,
+	`date_to` DATETIME NOT NULL,
+	FOREIGN KEY (`vendor_id`) REFERENCES `vendors`(`id`) ON DELETE CASCADE,
+	FOREIGN KEY (`client_id`) REFERENCES `clients`(`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `order_items` (
 	`id` INT AUTO_INCREMENT PRIMARY KEY,
 	`order_id` INT NOT NULL,
 	`place_id` INT NOT NULL,
-	FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`),
-	FOREIGN KEY (`place_id`) REFERENCES `places`(`id`)
+	FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`) ON DELETE CASCADE,
+	FOREIGN KEY (`place_id`) REFERENCES `places`(`id`) ON DELETE CASCADE
 );

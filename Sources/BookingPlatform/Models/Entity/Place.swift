@@ -6,7 +6,7 @@
 //
 //
 
-class Place {
+final class Place {
     typealias PlaceNumber = Int
     
     var id: Int?

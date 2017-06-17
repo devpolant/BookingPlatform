@@ -6,5 +6,5 @@
 //
 //
 
-class Client: User {
+final class Client: User {
 }

@@ -6,9 +6,7 @@
 //
 //
 
-import Foundation
-
-class OrderItem {
+final class OrderItem {
     
     var id: Int?
     var orderId: Int

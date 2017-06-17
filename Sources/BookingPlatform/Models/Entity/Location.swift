@@ -11,7 +11,7 @@ struct Coordinate {
     var longitude: Double
 }
 
-class Location {
+final class Location {
     
     var id: Int?
     var name: String

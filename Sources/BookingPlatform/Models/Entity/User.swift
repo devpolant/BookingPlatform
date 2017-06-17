@@ -11,7 +11,7 @@ class User {
     var id: Int?
     var login: String
     var name: String
-    var email: String?
+    var email: String
     var password: String
     var salt: String
     var token: AccessToken

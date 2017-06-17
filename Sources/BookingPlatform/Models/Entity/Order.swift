@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Order {
+final class Order {
     
     var id: Int?
     var vendorId: Int

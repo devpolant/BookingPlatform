@@ -6,5 +6,5 @@
 //
 //
 
-class Vendor: User {
+final class Vendor: User {
 }
