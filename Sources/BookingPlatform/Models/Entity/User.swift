@@ -14,9 +14,9 @@ class User {
     var email: String?
     var password: String
     var salt: String
-    var token: String
+    var token: AccessToken
     
-    init(id: Int? = nil, login: String, name: String, email: String, password: String, salt: String, token: String) {
+    init(id: Int? = nil, login: String, name: String, email: String, password: String, salt: String, token: AccessToken) {
         self.id = id
         self.login = login
         self.name = name
