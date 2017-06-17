@@ -45,7 +45,8 @@ CREATE TABLE `orders` (
 	`id` INT AUTO_INCREMENT PRIMARY KEY,
 	`vendor_id` INT NOT NULL,
 	`client_id` INT NOT NULL,
-	`date` DATETIME NOT NULL,
+    `date_from` DATETIME NOT NULL,
+    `date_to` DATETIME NOT NULL,
 	FOREIGN KEY (`vendor_id`) REFERENCES `vendors`(`id`),
 	FOREIGN KEY (`client_id`) REFERENCES `clients`(`id`)
 );

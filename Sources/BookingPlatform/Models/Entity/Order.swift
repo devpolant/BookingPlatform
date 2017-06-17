@@ -13,12 +13,14 @@ class Order {
     var id: Int?
     var vendorId: Int
     var clientId: Int
-    var date: Date
+    var dateFrom: Date
+    var dateTo: Date
     
-    init(id: Int? = nil, vendorId: Int, clientId: Int, dateTime: TimeInterval) {
+    init(id: Int? = nil, vendorId: Int, clientId: Int, dateTimeFrom: TimeInterval, dateTimeTo: TimeInterval) {
         self.id = id
         self.vendorId = vendorId
         self.clientId = clientId
-        self.date = Date(timeIntervalSince1970: dateTime)
+        self.dateFrom = Date(timeIntervalSince1970: dateTimeFrom)
+        self.dateTo = Date(timeIntervalSince1970: dateTimeTo)
     }
 }
