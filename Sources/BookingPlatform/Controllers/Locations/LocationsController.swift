@@ -1,5 +1,5 @@
 //
-//  AuthController.swift
+//  LocationsController.swift
 //  BookingPlatform
 //
 //  Created by Anton Poltoratskyi on 17.06.17.
@@ -8,7 +8,7 @@
 
 import Kitura
 
-class AuthController: RouteRepresentable {
+class LocationsController: RouteRepresentable {
     
     private let baseRouter: Router
     
@@ -20,21 +20,20 @@ class AuthController: RouteRepresentable {
     }
     
     
-    // MARK: - Setup
+    // MARK: - Routes
     
     func setupRoutes() {
         
         let clientRouter = self.baseRouter.route("/client")
         let vendorRouter = self.baseRouter.route("/vendor")
         
-        let clientController = ClientAuthController(baseRouter: clientRouter)
-        let vendorController = VendorAuthController(baseRouter: vendorRouter)
+        let clientLocationsController = ClientLocationsController(baseRouter: clientRouter)
+        let vendorLocationsController = VendorLocationsController(baseRouter: vendorRouter)
         
         let controllers: [RouteRepresentable] = [
-            clientController,
-            vendorController
+            clientLocationsController,
+            vendorLocationsController
         ]
         controllers.forEach { $0.setupRoutes() }
     }
 }
-

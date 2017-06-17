@@ -1,5 +1,5 @@
 //
-//  AuthController.swift
+//  OrdersController.swift
 //  BookingPlatform
 //
 //  Created by Anton Poltoratskyi on 17.06.17.
@@ -8,7 +8,7 @@
 
 import Kitura
 
-class AuthController: RouteRepresentable {
+class OrdersController: RouteRepresentable {
     
     private let baseRouter: Router
     
@@ -20,21 +20,20 @@ class AuthController: RouteRepresentable {
     }
     
     
-    // MARK: - Setup
+    // MARK: - Routes
     
     func setupRoutes() {
         
         let clientRouter = self.baseRouter.route("/client")
         let vendorRouter = self.baseRouter.route("/vendor")
         
-        let clientController = ClientAuthController(baseRouter: clientRouter)
-        let vendorController = VendorAuthController(baseRouter: vendorRouter)
+        let clientOrdersController = ClientOrdersController(baseRouter: clientRouter)
+        let vendorOrdersController = VendorOrdersController(baseRouter: vendorRouter)
         
         let controllers: [RouteRepresentable] = [
-            clientController,
-            vendorController
+            clientOrdersController,
+            vendorOrdersController
         ]
         controllers.forEach { $0.setupRoutes() }
     }
 }
-
