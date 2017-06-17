@@ -3,12 +3,7 @@ import HeliumLogger
 
 HeliumLogger.use()
 
-let router = Router()
-router.get { request, response, next in
-    defer { next() }
-    
-    response.send("It working!")
-}
+let apiController = ApiController()
 
-Kitura.addHTTPServer(onPort: 8090, with: router)
+Kitura.addHTTPServer(onPort: 8090, with: apiController.router)
 Kitura.run()

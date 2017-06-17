@@ -14,4 +14,7 @@ extension RouterRequest {
     var token: AccessToken? {
         return parameters["token"]
     }
+    var hasToken: Bool {
+        return token != nil
+    }
 }
