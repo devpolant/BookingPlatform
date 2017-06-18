@@ -150,4 +150,40 @@ class DatabaseManager {
         }
     }
     
+    func location(with id: Int, from db: Database, on connection: Connection) throws -> Location? {
+        let query = "SELECT * from `locations` WHERE `id` = ?"
+        let arguments: [NodeRepresentable] = [id]
+        let rows = try db.execute(query, arguments, connection)
+        guard let row = rows.first else {
+            return nil
+        }
+        return Location(with: row)
+    }
+    
+    
+    // MARK: - Places
+    
+    // MARK: CRUD
+    
+    func addPlace(_ place: Place, to db: Database, on connection: Connection) throws {
+        let query = "INSERT INTO `locations` (location_id, place_number) VALUES (?, ?)"
+        let arguments: [NodeRepresentable] = [
+            place.locationId, place.number
+        ]
+        try db.execute(query, arguments, connection)
+    }
+    
+    // MARK: Fetch
+    
+    func filterPlaces(byLocation location: Location, from db: Database, on connection: Connection) throws -> [Place] {
+        guard let id = location.id else {
+            return []
+        }
+        let query = "SELECT * from `places` WHERE `location_id` = ?"
+        let arguments: [NodeRepresentable] = [id]
+        let rows = try db.execute(query, arguments, connection)
+        return rows.map {
+            Place(with: $0)
+        }
+    }
 }

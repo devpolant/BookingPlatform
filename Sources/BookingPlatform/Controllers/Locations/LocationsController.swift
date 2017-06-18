@@ -23,6 +23,7 @@ class LocationsController: RouteRepresentable {
     // MARK: - Routes
     
     func setupRoutes() {
+        self.baseRouter.all(middleware: AccessControlMiddleware())
         
         let clientRouter = self.baseRouter.route("/client")
         let vendorRouter = self.baseRouter.route("/vendor")

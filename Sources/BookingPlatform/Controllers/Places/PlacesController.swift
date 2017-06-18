@@ -23,6 +23,7 @@ class PlacesController: RouteRepresentable {
     // MARK: - Routes
     
     func setupRoutes() {
+        self.baseRouter.all(middleware: AccessControlMiddleware())
         
         // common routes for vendor and client
         self.baseRouter.post("/list", handler: self.availablePlaces)
@@ -46,6 +47,31 @@ class PlacesController: RouteRepresentable {
     func availablePlaces(request: RouterRequest, response: RouterResponse, next: () -> Void) throws {
         defer { next() }
         
+        let requiredFields = ["location_id"]
+        guard let fields = request.getPost(fields: requiredFields) else {
+            try response.badRequest(expected: requiredFields).end()
+            return
+        }
+        let locationId = Int(fields["location_id"]!)!
+        let (db, connection) = try MySQLConnector.connectToDatabase()
         
+        guard let location = try DatabaseManager.shared.location(with: locationId, from: db, on: connection) else {
+            return
+        }
+        
+        let places: [Place]
+        do {
+            places = try DatabaseManager.shared.filterPlaces(byLocation: location, from: db, on: connection)
+        } catch {
+            let errorMessage = "Error while fetching places"
+            try response.internalServerError(message: errorMessage).end()
+            return
+        }
+        
+        let result: [String: Any] = [
+            "error": false,
+            "places": places.map { $0.responseDictionary }
+        ]
+        response.send(json: result)
     }
 }

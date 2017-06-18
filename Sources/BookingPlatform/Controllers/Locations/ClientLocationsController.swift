@@ -23,7 +23,6 @@ class ClientLocationsController: RouteRepresentable {
     // MARK: - Routes
     
     func setupRoutes() {
-        self.baseRouter.all(middleware: AccessControlMiddleware())
         self.baseRouter.post("/all", handler: self.locations)
         self.baseRouter.post("/vendor", handler: self.locationsByVendor)
     }

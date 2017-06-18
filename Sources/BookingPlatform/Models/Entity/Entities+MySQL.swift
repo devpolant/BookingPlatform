@@ -64,7 +64,7 @@ extension Place: MySQLInitializable {
     convenience init(with node: [String: Node]) {
         let id = node["id"]?.int
         let locationId = node["location_id"]!.int!
-        let placeNumber = node["number"]!.int!
+        let placeNumber = node["place_number"]!.int!
         self.init(id: id, locationId: locationId, number: placeNumber)
     }
 }
