@@ -23,4 +23,14 @@ class Cipher {
         
         return CryptoUtils.hexString(from: key)
     }
+    
+    func salt(fields: [String]) -> String {
+        let saltString: String
+        if let salt = try? Random.generate(byteCount: 64) {
+            saltString = CryptoUtils.hexString(from: salt)
+        } else {
+            saltString = fields.joined().digest(using: .sha512)
+        }
+        return saltString
+    }
 }

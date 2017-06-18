@@ -8,7 +8,7 @@
 
 import Kitura
 
-class AuthMiddleware: RouterMiddleware {
+class AccessControlMiddleware: RouterMiddleware {
     
     func handle(request: RouterRequest, response: RouterResponse, next: @escaping () -> Void) throws {
         

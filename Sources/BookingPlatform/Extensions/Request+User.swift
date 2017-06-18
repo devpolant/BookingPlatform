@@ -12,9 +12,9 @@ typealias AccessToken = String
 
 extension RouterRequest {
     var token: AccessToken? {
-        return parameters["token"]
+        return getField(key: "token")
     }
     var hasToken: Bool {
-        return token != nil
+        return self.token != nil
     }
 }

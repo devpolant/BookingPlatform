@@ -52,4 +52,8 @@ extension RouterRequest {
         }
         return result
     }
+    
+    func getField(key: String) -> String? {
+        return getPost(fields: [key])?[key]
+    }
 }
