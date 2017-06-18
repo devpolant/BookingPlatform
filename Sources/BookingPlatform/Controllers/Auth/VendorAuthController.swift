@@ -34,14 +34,13 @@ class VendorAuthController: RouteRepresentable {
     func signUp(request: RouterRequest, response: RouterResponse, next: () -> Void) throws {
         defer { next() }
         
-        let requiredFields = ["login", "name", "email", "password"]
+        let requiredFields = ["login", "email", "password"]
         
         guard let fields = request.getPost(fields: requiredFields) else {
             try response.badRequest(expected: requiredFields).end()
             return
         }
         let login = fields["login"]!
-        let name = fields["name"]!
         let email = fields["email"]!
         let password = fields["password"]!
         
@@ -53,7 +52,6 @@ class VendorAuthController: RouteRepresentable {
         let token = UUID().uuidString
         
         let vendor = Vendor(login: login,
-                            name: name,
                             email: email,
                             password: encryptedPassword,
                             salt: salt,

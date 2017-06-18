@@ -22,12 +22,11 @@ extension Client: MySQLInitializable {
     convenience init(with node: [String: Node]) {
         let id = node["id"]?.int
         let login = node["login"]!.string!
-        let name = node["name"]!.string!
         let email = node["email"]!.string!
         let password = node["password"]!.string!
         let salt = node["salt"]!.string!
         let token = node["token"]!.string!
-        self.init(id: id, login: login, name: name, email: email, password: password, salt: salt, token: token)
+        self.init(id: id, login: login, email: email, password: password, salt: salt, token: token)
     }
 }
 
@@ -36,12 +35,11 @@ extension Vendor: MySQLInitializable {
     convenience init(with node: [String: Node]) {
         let id = node["id"]?.int
         let login = node["login"]!.string!
-        let name = node["name"]!.string!
         let email = node["email"]!.string!
         let password = node["password"]!.string!
         let salt = node["salt"]!.string!
         let token = node["token"]!.string!
-        self.init(id: id, login: login, name: name, email: email, password: password, salt: salt, token: token)
+        self.init(id: id, login: login, email: email, password: password, salt: salt, token: token)
     }
 }
 

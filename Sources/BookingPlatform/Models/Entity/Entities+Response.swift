@@ -19,7 +19,6 @@ extension Client: ResponseRepresentable {
         
         result["id"] = self.id
         result["login"] = self.login
-        result["name"] = self.name
         result["email"] = self.email
         result["token"] = self.token
         
@@ -34,7 +33,6 @@ extension Vendor: ResponseRepresentable {
         
         result["id"] = self.id
         result["login"] = self.login
-        result["name"] = self.name
         result["email"] = self.email
         result["token"] = self.token
         
