@@ -56,6 +56,8 @@ class PlacesController: RouteRepresentable {
         let (db, connection) = try MySQLConnector.connectToDatabase()
         
         guard let location = try DatabaseManager.shared.location(with: locationId, from: db, on: connection) else {
+            let errorMessage = "Location not found"
+            try response.internalServerError(message: errorMessage).end()
             return
         }
         

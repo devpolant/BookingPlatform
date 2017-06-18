@@ -166,7 +166,7 @@ class DatabaseManager {
     // MARK: CRUD
     
     func addPlace(_ place: Place, to db: Database, on connection: Connection) throws {
-        let query = "INSERT INTO `locations` (location_id, place_number) VALUES (?, ?)"
+        let query = "INSERT INTO `places` (location_id, place_number) VALUES (?, ?)"
         let arguments: [NodeRepresentable] = [
             place.locationId, place.number
         ]

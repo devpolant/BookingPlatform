@@ -51,8 +51,8 @@ extension Location: MySQLInitializable {
         let id = node["id"]?.int
         let name = node["name"]!.string!
         let vendorId = node["vendor_id"]!.int!
-        let latitude = node["latitude"]!.double!
-        let longitude = node["longitude"]!.double!
+        let latitude = node["lat"]!.double!
+        let longitude = node["lng"]!.double!
         let coordinate = Coordinate(latitude: latitude,
                                     longitude: longitude)
         self.init(id: id, name: name, coordinate: coordinate, vendorId: vendorId)

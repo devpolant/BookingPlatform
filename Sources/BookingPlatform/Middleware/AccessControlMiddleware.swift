@@ -13,7 +13,7 @@ class AccessControlMiddleware: RouterMiddleware {
     func handle(request: RouterRequest, response: RouterResponse, next: @escaping () -> Void) throws {
         
         guard request.hasToken else {
-            try response.end()
+            try response.badRequest(message: "Token missed").end()
             return
         }
         next()

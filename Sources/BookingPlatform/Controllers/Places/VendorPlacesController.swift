@@ -59,7 +59,7 @@ class VendorPlacesController: RouteRepresentable {
         do {
             try DatabaseManager.shared.addPlace(place, to: db, on: connection)
         } catch {
-            let errorMessage = "Error while loading inserting place to database"
+            let errorMessage = "Error while inserting place to database"
             _ = response.internalServerError(message: errorMessage)
             return
         }
