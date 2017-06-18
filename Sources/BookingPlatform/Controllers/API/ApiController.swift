@@ -15,6 +15,9 @@ class ApiController {
         
         let rootRouter = Router()
         
+        rootRouter.post(middleware: self.parser)
+        rootRouter.all("/static", middleware: self.fileServer)
+        
         // Routers
         let authRouter = rootRouter.route("/auth")
         let locationsRouter = rootRouter.route("/location")
@@ -37,4 +40,22 @@ class ApiController {
         
         return rootRouter
     }()
+}
+
+// MARK: - Parser
+
+extension ApiController {
+    
+    var parser: RouterMiddleware {
+        return BodyParser()
+    }
+}
+
+// MARK: - File Server
+
+extension ApiController {
+    
+    var fileServer: RouterMiddleware {
+        return StaticFileServer()
+    }
 }
