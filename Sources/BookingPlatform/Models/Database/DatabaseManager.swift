@@ -19,8 +19,8 @@ class DatabaseManager {
     // MARK: CRUD
     
     func addClient(_ client: Client, to db: Database, on connection: Connection) throws -> Int {
-        let query = "INSERT INTO `clients` (login, name, email, password, salt, token) VALUES (?, ?, ?, ?, ?, ?)"
-        let arguments = [client.login, client.name, client.email, client.password, client.salt, client.token]
+        let query = "INSERT INTO `clients` (login, email, password, salt, token) VALUES (?, ?, ?, ?, ?)"
+        let arguments = [client.login, client.email, client.password, client.salt, client.token]
         // insert
         try db.execute(query, arguments, connection)
         // fetch id
@@ -31,8 +31,8 @@ class DatabaseManager {
         guard let id = client.id else {
             return
         }
-        let query = "UPDATE `clients` SET `login` = ?, `name` = ?, `email` = ?, `password` = ?, `salt` = ?, `token` = ? WHERE `id` = ?"
-        let arguments: [NodeRepresentable] = [client.login, client.name, client.email, client.password, client.salt, client.token, id]
+        let query = "UPDATE `clients` SET `login` = ?, `email` = ?, `password` = ?, `salt` = ?, `token` = ? WHERE `id` = ?"
+        let arguments: [NodeRepresentable] = [client.login, client.email, client.password, client.salt, client.token, id]
         try db.execute(query, arguments, connection)
     }
     
@@ -64,8 +64,8 @@ class DatabaseManager {
     // MARK: CRUD
     
     func addVendor(_ vendor: Vendor, to db: Database, on connection: Connection) throws -> Int {
-        let query = "INSERT INTO `vendors` (login, name, email, password, salt, token) VALUES (?, ?, ?, ?, ?, ?)"
-        let arguments = [vendor.login, vendor.name, vendor.email, vendor.password, vendor.salt, vendor.token]
+        let query = "INSERT INTO `vendors` (login, email, password, salt, token) VALUES (?, ?, ?, ?, ?)"
+        let arguments = [vendor.login, vendor.email, vendor.password, vendor.salt, vendor.token]
         // insert
         try db.execute(query, arguments, connection)
         // fetch id
@@ -76,8 +76,8 @@ class DatabaseManager {
         guard let id = vendor.id else {
             return
         }
-        let query = "UPDATE `vendors` SET `login` = ?, `name` = ?, `email` = ?, `password` = ?, `salt` = ?, `token` = ? WHERE `id` = ?"
-        let arguments: [NodeRepresentable] = [vendor.login, vendor.name, vendor.email, vendor.password, vendor.salt, vendor.token, id]
+        let query = "UPDATE `vendors` SET `login` = ?, `email` = ?, `password` = ?, `salt` = ?, `token` = ? WHERE `id` = ?"
+        let arguments: [NodeRepresentable] = [vendor.login, vendor.email, vendor.password, vendor.salt, vendor.token, id]
         try db.execute(query, arguments, connection)
     }
     
