@@ -17,4 +17,8 @@ extension Database {
     func commitTransaction(connection: Connection) throws {
         try self.execute("COMMIT;", [], connection)
     }
+    
+    func rollbackTransaction(connection: Connection) throws {
+        try self.execute("ROLLBACK;", [], connection)
+    }
 }

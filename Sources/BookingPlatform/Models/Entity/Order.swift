@@ -11,14 +11,14 @@ import Foundation
 final class Order {
     
     var id: Int?
-    var vendorId: Int
+    var locationId: Int
     var clientId: Int
     var dateFrom: Date
     var dateTo: Date
     
-    init(id: Int? = nil, vendorId: Int, clientId: Int, dateTimeFrom: TimeInterval, dateTimeTo: TimeInterval) {
+    init(id: Int? = nil, locationId: Int, clientId: Int, dateTimeFrom: TimeInterval, dateTimeTo: TimeInterval) {
         self.id = id
-        self.vendorId = vendorId
+        self.locationId = locationId
         self.clientId = clientId
         self.dateFrom = Date(timeIntervalSince1970: dateTimeFrom)
         self.dateTo = Date(timeIntervalSince1970: dateTimeTo)

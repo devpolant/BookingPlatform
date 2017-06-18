@@ -38,7 +38,7 @@ extension RouterRequest {
         for field in fields {
             
             if let value = submittedFields[field]?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                if value.characters.count > 0 {
+                if !value.characters.isEmpty {
                     
                     if removeHTMLEncoding {
                         result[field] = value.removingHTMLEncoding()

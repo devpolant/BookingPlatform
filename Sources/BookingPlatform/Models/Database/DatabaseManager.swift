@@ -186,4 +186,62 @@ class DatabaseManager {
             Place(with: $0)
         }
     }
+    
+    
+    // MARK: - Orders
+    
+    // MARK: CRUD
+    
+    func addOrder(_ order: Order, withPlaces placeIds: [Int], to db: Database, connection: Connection) throws {
+        
+        let orderQuery = "INSERT INTO `orders` (location_id, client_id, date_from, date_to) VALUES (?, ?, ?, ?)"
+        let orderArguments: [NodeRepresentable] = [
+            order.locationId, order.clientId, order.dateFrom.timeIntervalSince1970, order.dateTo.timeIntervalSince1970
+        ]
+        do {
+            try db.beginTransaction(connection: connection)
+            
+            try db.execute(orderQuery, orderArguments, connection)
+            
+            let idQuery = "SELECT MAX(id) from `orders` where `client_id` = ?"
+            let idArguments: [NodeRepresentable] = [order.clientId]
+            let idRows = try db.execute(idQuery, idArguments, connection)
+            guard let orderId = idRows.first?["id"]?.int else {
+                try db.rollbackTransaction(connection: connection)
+                return
+            }
+            let orderItems = placeIds.map { placeId in OrderItem(orderId: orderId, placeId: placeId) }
+            
+            try orderItems.forEach {
+                try self.addOrderItem($0, to: db, connection: connection)
+            }
+            try db.commitTransaction(connection: connection)
+            
+        } catch {
+            try db.rollbackTransaction(connection: connection)
+            throw error
+        }
+    }
+    
+    private func addOrderItem(_ orderItem: OrderItem, to db: Database, connection: Connection) throws {
+        let query = "INSERT INTO `order_items` (order_id, place_id) VALUES (?, ?)"
+        let arguments: [NodeRepresentable] = [
+            orderItem.orderId, orderItem.placeId
+        ]
+        try db.execute(query, arguments, connection)
+    }
+    
+    // MARK: Fetch
+    
+    func filterOrders(by client: Client, from db: Database, connection: Connection) throws -> [Order] {
+        guard let id = client.id else {
+            return []
+        }
+        let query = "SELECT * from `orders` WHERE `client_id` = ?"
+        let arguments: [NodeRepresentable] = [id]
+        let rows = try db.execute(query, arguments, connection)
+        return rows.map {
+            Order(with: $0)
+        }
+    }
 }

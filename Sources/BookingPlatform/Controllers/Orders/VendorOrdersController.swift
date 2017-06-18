@@ -23,6 +23,7 @@ class VendorOrdersController: RouteRepresentable {
     // MARK: - Routes
     
     func setupRoutes() {
+        self.baseRouter.all(middleware: AccessControlMiddleware())
         self.baseRouter.post("/list", handler: self.bookedOrders)
     }
     
@@ -32,6 +33,6 @@ class VendorOrdersController: RouteRepresentable {
     func bookedOrders(request: RouterRequest, response: RouterResponse, next: () -> Void) throws {
         defer { next() }
         
-        
+        // TODO: fetch booked orders
     }
 }

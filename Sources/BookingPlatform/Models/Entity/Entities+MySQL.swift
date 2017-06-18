@@ -73,11 +73,11 @@ extension Order: MySQLInitializable {
     
     convenience init(with node: [String: Node]) {
         let id = node["id"]?.int
-        let vendorId = node["vendor_id"]!.int!
+        let locationId = node["location_id"]!.int!
         let clientId = node["client_id"]!.int!
         let dateFrom = node["date_from"]!.int!
         let dateTo = node["date_to"]!.int!
-        self.init(id: id, vendorId: vendorId, clientId: clientId, dateTimeFrom: TimeInterval(dateFrom), dateTimeTo: TimeInterval(dateTo))
+        self.init(id: id, locationId: locationId, clientId: clientId, dateTimeFrom: TimeInterval(dateFrom), dateTimeTo: TimeInterval(dateTo))
     }
 }
 

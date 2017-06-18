@@ -76,7 +76,7 @@ extension Order: ResponseRepresentable {
         var result = [String: Any]()
         
         result["id"] = self.id
-        result["vendor_id"] = self.vendorId
+        result["location_id"] = self.locationId
         result["client_id"] = self.clientId
         result["date_from"] = self.dateFrom.timeIntervalSince1970
         result["date_to"] = self.dateTo.timeIntervalSince1970
