@@ -92,7 +92,7 @@ class VendorAuthController: RouteRepresentable {
         let password = fields["password"]!
         
         let (db, connection) = try MySQLConnector.connectToDatabase()
-        guard let vendor = try DatabaseManager.shared.fetchVendor(by: email, from: db, on: connection) else {
+        guard let vendor = try DatabaseManager.shared.fetchVendor(byEmail: email, from: db, on: connection) else {
             let errorMessage = "Vendor not found"
             try response.badRequest(message: errorMessage).end()
             return

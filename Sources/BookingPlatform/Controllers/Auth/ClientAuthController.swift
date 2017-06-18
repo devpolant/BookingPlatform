@@ -89,7 +89,7 @@ class ClientAuthController: RouteRepresentable {
         let password = fields["password"]!
         
         let (db, connection) = try MySQLConnector.connectToDatabase()
-        guard let client = try DatabaseManager.shared.fetchClient(by: email, from: db, on: connection) else {
+        guard let client = try DatabaseManager.shared.fetchClient(byEmail: email, from: db, on: connection) else {
             let errorMessage = "Client not found"
             try response.badRequest(message: errorMessage).end()
             return
