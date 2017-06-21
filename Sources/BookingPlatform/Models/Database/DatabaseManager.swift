@@ -203,10 +203,10 @@ class DatabaseManager {
             
             try db.execute(orderQuery, orderArguments, connection)
             
-            let idQuery = "SELECT MAX(id) from `orders` where `client_id` = ?"
+            let idQuery = "SELECT MAX(id) AS `identifier` from `orders` where `client_id` = ?"
             let idArguments: [NodeRepresentable] = [order.clientId]
             let idRows = try db.execute(idQuery, idArguments, connection)
-            guard let orderId = idRows.first?["id"]?.int else {
+            guard let orderId = idRows.first?["identifier"]?.int else {
                 try db.rollbackTransaction(connection: connection)
                 return
             }
